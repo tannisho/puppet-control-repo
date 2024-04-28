@@ -1,0 +1,113 @@
+---
+# This must contain 'trusted_nets' if you want this to cover your base YUM
+# repo services.
+#
+# We don't enable non-TLS connections by default. All SIMP services should now
+# be able to use TLS for all connections.
+simp_apache::conf::ssl::trusted_nets: "%{alias('simp_options::trusted_nets')}"
+
+# We disable the SSL client validation for the Kickstart server. There is no
+# way to validate a default image without embedding a certificate in the image
+# and we are not going to modify the core kickstart image from the vendor.
+#
+# Since this system is, by default, only a kickstart/YUM server with Apache,
+# this will not adversely affect the security posture of the system.
+simp_apache::ssl::sslverifyclient: none
+
+# Make this server a puppetserver
+pupmod::enable_puppet_master: true
+
+### Secure SIMP Options ###
+simp_options::auditd: true
+simp_options::firewall: true
+iptables::use_firewalld: true
+simp_options::haveged: true
+simp_options::logrotate: true
+simp_options::pam: true
+simp_options::pki: simp
+simp_options::stunnel: true
+simp_options::syslog: true
+simp_options::tcpwrappers: true
+
+# Allow the backup SIMP user, local only to this system
+simp::server::allow_simp_user: false
+
+# Ensure that the puppetserver's logs can be captured by the local system so
+# that they can be forwarded for analysis at a later date.
+#
+# Using a local UDP server allows for a much more reliable collection mechanism
+# than rsyslog file taps and allows for the encryption of log messages.
+#
+# For Puppet Open Source, the logs will be stored in /var/log/puppetserver.log
+# and are collected at the 'warn' level by default. Puppet Enterprise logging
+# settings are not manipulated by SIMP.
+rsyslog::udp_server: true
+rsyslog::udp_listen_address: 127.0.0.1
+
+# === simp_grub::password ===
+# The password to access GRUB.
+#
+# The value entered is used to set the GRUB password and to generate a hash
+# stored in simp_grub::password.
+# yamllint disable-line rule:line-length
+simp_grub::password: grub.pbkdf2.sha512.10000.84E08476C7B4664863B52AFC1FD4FA43D41A7ABBA88AE5775768C37FDDA3604557EA7EDF9D338F4A3196291E769D767405E2A79CB80A302CF6DBEFE4B85AB583.DE1B1A2DC9F8650B5C720491ADAF33D58344B9B1201240EB1B501528A863361967954F9BBFF711AD6854B8A0DE7E94E549D17F2D76BB2ABDFB3A16BE71FA5C7B
+
+# === simp_grub::admin ===
+# The GRUB 2 administrative username
+simp_grub::admin: root
+
+# === pam::access::users ===
+# PAM remote access rules.
+#
+# Users allowed to ssh to the server and their corresponding origin
+# restrictions.
+pam::access::users:
+  simp:
+    origins:
+      - ALL
+
+# === selinux::login_resources ===
+# SELinux login mapping configuration.
+selinux::login_resources:
+  simp:
+    seuser: staff_u
+    mls_range: s0-s0:c0.c1023
+
+# === sudo::user_specifications ===
+# `sudo` user rules.
+sudo::user_specifications:
+  simp_su:
+    user_list:
+      - simp
+    cmnd:
+      - ALL
+    passwd: true
+    options:
+      role: unconfined_r
+
+# Un-comment this line if using Puppet Open Source and you need the
+# puppetserver messages regarding node compile times, etc...
+# pupmod::master::log_level: INFO
+
+simp::classes:
+  - simp_grub
+  - simp::server
+
+simp::server::classes:
+#  - simp::puppetdb
+  - simp::server::yum
+  - simp::server::kickstart
+
+simp::yum::repo::local_simp::enable_repo: true
+simp::yum::repo::local_os_updates::enable_repo: true
+
+# puppetdb
+# yamllint disable-line rule:line-length
+#puppetdb::master::config::puppetdb_server: "%{hiera('simp_options::puppet::server')}"
+#puppetdb::master::config::puppet_service_name: 'puppetserver'
+#puppetdb::master::config::restart_puppet: false
+#puppetdb::master::config::puppetdb_port: 8139
+#puppetdb::globals::version: 'latest'
+#puppetdb::params::jdbc_ssl_properties: '?ssl=false'
+
+simp::server::kickstart::manage_dhcp: false

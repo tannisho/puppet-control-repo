@@ -1,0 +1,28 @@
+---
+version: 5
+defaults:
+  datadir: data
+  data_hash: yaml_data
+
+hierarchy:
+
+  - name: "barsbug heirarchy"
+    lookup_key: eyaml_lookup_key
+    options: 
+      pkcs7_private_key: "/etc/puppetlabs/secure/keys/private_key.pkcs7.pem"
+      pkcs7_public_key: "/etc/puppetlabs/secure/keys/public_key.pkcs7.pem"
+    paths:
+    - "hosts/%{trusted.certname}.yaml"
+    - "hosts/%{facts.fqdn}.yaml"
+    - "hosts/%{facts.hostname}.yaml"
+    - "domains/%{facts.networking.domain}.yaml"
+    - "roles/%{facts.role}.yaml"
+    - "%{facts.os.family}.yaml"
+    - "%{facts.os.name}/%{facts.os.release.full}.yaml"
+    - "%{facts.os.name}/%{facts.os.release.major}.yaml"
+    - "%{facts.os.name}.yaml"
+    - "hostgroups/%{::hostgroup}.yaml"
+    - "default.yaml"
+    - "common.yaml"
+    - "simp_config_settings.yaml"
+    - "scenarios/%{::simp_scenario}.yaml"

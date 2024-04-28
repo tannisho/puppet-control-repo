@@ -1,0 +1,3 @@
+options lnet networks="tcp(<%= @storage_interface %>)"
+options ko2iblnd peer_credits=32 peer_credits_hiw=16 concurrent_sends=64
+options lnet lnet_transaction_timeout=100 lnet_retry_count=2

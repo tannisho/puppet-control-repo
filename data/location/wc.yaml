@@ -1,0 +1,9 @@
+local_mirror: mirror-wc.test.local
+
+simp_options::dns::servers:
+  - ns-wc.test.local
+
+simp_options::ntpd::servers:
+  - ntp-wc.test.local
+
+timezone::timezone: 'America/Los_Angeles'

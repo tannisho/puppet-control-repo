@@ -1,0 +1,329 @@
+# ------------------------------------------------------------------------------
+# SIMP Puppetfile (Generated at 2024-04-20 15:37:41)
+# ------------------------------------------------------------------------------
+# This Puppetfile deploys SIMP Puppet modules from the local Git repositories at
+#   /usr/share/simp/git/puppet_modules
+# referencing tagged Git commits that match the versions for each module
+# installed in
+#   /usr/share/simp/modules
+#
+# The Git repositories are automatically created and updated when SIMP module
+# RPMs are installed.
+# ------------------------------------------------------------------------------
+
+mod 'herculesteam-augeasproviders_core',
+  :git => 'file:///usr/share/simp/git/puppet_modules/herculesteam-augeasproviders_core.git',
+  :tag => '3.1.0'
+
+mod 'herculesteam-augeasproviders_grub',
+  :git => 'file:///usr/share/simp/git/puppet_modules/herculesteam-augeasproviders_grub.git',
+  :tag => '3.2.0'
+
+mod 'herculesteam-augeasproviders_ssh',
+  :git => 'file:///usr/share/simp/git/puppet_modules/herculesteam-augeasproviders_ssh.git',
+  :tag => '4.0.0'
+
+mod 'herculesteam-augeasproviders_sysctl',
+  :git => 'file:///usr/share/simp/git/puppet_modules/herculesteam-augeasproviders_sysctl.git',
+  :tag => '2.6.2'
+
+mod 'onyxpoint-gpasswd',
+  :git => 'file:///usr/share/simp/git/puppet_modules/onyxpoint-gpasswd.git',
+  :tag => '1.1.2'
+
+mod 'puppet-chrony',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppet-chrony.git',
+  :tag => '2.4.0'
+
+mod 'puppet-firewalld',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppet-firewalld.git',
+  :tag => '4.5.1'
+
+mod 'puppet-kmod',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppet-kmod.git',
+  :tag => '3.2.0'
+
+mod 'puppet-systemd',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppet-systemd.git',
+  :tag => '3.10.0'
+
+mod 'puppet-yum',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppet-yum.git',
+  :tag => '5.4.0'
+
+mod 'puppetlabs-apache',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppetlabs-apache.git',
+  :tag => '6.5.1'
+
+mod 'puppetlabs-concat',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppetlabs-concat.git',
+  :tag => '7.0.1'
+
+mod 'puppetlabs-hocon',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppetlabs-hocon.git',
+  :tag => '1.1.0'
+
+mod 'puppetlabs-inifile',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppetlabs-inifile.git',
+  :tag => '5.3.0'
+
+mod 'puppetlabs-motd',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppetlabs-motd.git',
+  :tag => '6.0.0'
+
+mod 'puppetlabs-postgresql',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppetlabs-postgresql.git',
+  :tag => '8.0.0'
+
+mod 'puppetlabs-puppet_authorization',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppetlabs-puppet_authorization.git',
+  :tag => '0.5.1'
+
+mod 'puppetlabs-puppetdb',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppetlabs-puppetdb.git',
+  :tag => '7.10.0'
+
+mod 'puppetlabs-stdlib',
+  :git => 'file:///usr/share/simp/git/puppet_modules/puppetlabs-stdlib.git',
+  :tag => '7.1.0'
+
+mod 'saz-timezone',
+  :git => 'file:///usr/share/simp/git/puppet_modules/saz-timezone.git',
+  :tag => '6.1.0'
+
+mod 'simp-acpid',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-acpid.git',
+  :tag => '1.3.0'
+
+mod 'simp-aide',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-aide.git',
+  :tag => '6.6.0'
+
+mod 'simp-at',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-at.git',
+  :tag => '0.2.0'
+
+mod 'simp-auditd',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-auditd.git',
+  :tag => '8.8.0'
+
+mod 'simp-chkrootkit',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-chkrootkit.git',
+  :tag => '0.4.0'
+
+mod 'simp-clamav',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-clamav.git',
+  :tag => '6.5.0'
+
+mod 'simp-compliance_markup',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-compliance_markup.git',
+  :tag => '3.2.3'
+
+mod 'simp-cron',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-cron.git',
+  :tag => '0.3.0'
+
+mod 'simp-crypto_policy',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-crypto_policy.git',
+  :tag => '0.2.1'
+
+mod 'simp-deferred_resources',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-deferred_resources.git',
+  :tag => '0.4.0'
+
+mod 'simp-dhcp',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-dhcp.git',
+  :tag => '6.3.0'
+
+mod 'simp-ds389',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-ds389.git',
+  :tag => '0.2.0'
+
+mod 'simp-fips',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-fips.git',
+  :tag => '0.5.2'
+
+mod 'simp-haveged',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-haveged.git',
+  :tag => '0.9.1'
+
+mod 'simp-incron',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-incron.git',
+  :tag => '0.6.1'
+
+mod 'simp-iptables',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-iptables.git',
+  :tag => '6.6.0'
+
+mod 'simp-issue',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-issue.git',
+  :tag => '0.3.0'
+
+mod 'simp-logrotate',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-logrotate.git',
+  :tag => '6.6.0'
+
+mod 'simp-named',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-named.git',
+  :tag => '6.4.0'
+
+mod 'simp-network',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-network.git',
+  :tag => '6.3.2'
+
+mod 'simp-ntpd',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-ntpd.git',
+  :tag => '6.7.0'
+
+mod 'simp-oath',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-oath.git',
+  :tag => '0.3.0'
+
+mod 'simp-oddjob',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-oddjob.git',
+  :tag => '2.3.0'
+
+mod 'simp-pam',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-pam.git',
+  :tag => '6.11.1'
+
+mod 'simp-pki',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-pki.git',
+  :tag => '6.3.0'
+
+mod 'simp-polkit',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-polkit.git',
+  :tag => '6.4.0'
+
+mod 'simp-postfix',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-postfix.git',
+  :tag => '5.7.0'
+
+mod 'simp-pupmod',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-pupmod.git',
+  :tag => '8.3.1'
+
+mod 'simp-resolv',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-resolv.git',
+  :tag => '0.7.0'
+
+mod 'simp-rkhunter',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-rkhunter.git',
+  :tag => '0.1.0'
+
+mod 'simp-rsync',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-rsync.git',
+  :tag => '6.5.0'
+
+mod 'simp-rsyslog',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-rsyslog.git',
+  :tag => '8.2.0'
+
+mod 'simp-selinux',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-selinux.git',
+  :tag => '2.8.0'
+
+mod 'simp-simp',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-simp.git',
+  :tag => '4.16.6'
+
+mod 'simp-simp_apache',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-simp_apache.git',
+  :tag => '7.1.0'
+
+mod 'simp-simp_banners',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-simp_banners.git',
+  :tag => '0.3.0'
+
+mod 'simp-simp_ds389',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-simp_ds389.git',
+  :tag => '0.1.1'
+
+mod 'simp-simp_firewalld',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-simp_firewalld.git',
+  :tag => '0.3.1'
+
+mod 'simp-simp_grub',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-simp_grub.git',
+  :tag => '0.3.1'
+
+mod 'simp-simp_openldap',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-simp_openldap.git',
+  :tag => '6.6.0'
+
+mod 'simp-simp_options',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-simp_options.git',
+  :tag => '1.6.0'
+
+mod 'simp-simp_rsyslog',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-simp_rsyslog.git',
+  :tag => '0.6.0'
+
+mod 'simp-simpkv',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-simpkv.git',
+  :tag => '0.8.0'
+
+mod 'simp-simplib',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-simplib.git',
+  :tag => '4.10.4'
+
+mod 'simp-ssh',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-ssh.git',
+  :tag => '6.13.1'
+
+mod 'simp-sssd',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-sssd.git',
+  :tag => '7.4.1'
+
+mod 'simp-stunnel',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-stunnel.git',
+  :tag => '6.7.1'
+
+mod 'simp-sudo',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-sudo.git',
+  :tag => '5.5.1'
+
+mod 'simp-sudosh',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-sudosh.git',
+  :tag => '6.3.0'
+
+mod 'simp-svckill',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-svckill.git',
+  :tag => '3.7.0'
+
+mod 'simp-swap',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-swap.git',
+  :tag => '0.3.1'
+
+mod 'simp-tcpwrappers',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-tcpwrappers.git',
+  :tag => '6.3.0'
+
+mod 'simp-tftpboot',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-tftpboot.git',
+  :tag => '6.4.1'
+
+mod 'simp-tlog',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-tlog.git',
+  :tag => '0.3.2'
+
+mod 'simp-tuned',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-tuned.git',
+  :tag => '0.3.0'
+
+mod 'simp-useradd',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-useradd.git',
+  :tag => '0.6.0'
+
+mod 'simp-vox_selinux',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-vox_selinux.git',
+  :tag => '3.4.0'
+
+mod 'simp-xinetd',
+  :git => 'file:///usr/share/simp/git/puppet_modules/simp-xinetd.git',
+  :tag => '4.3.1'
+
+mod 'trlinkin-nsswitch',
+  :git => 'file:///usr/share/simp/git/puppet_modules/trlinkin-nsswitch.git',
+  :tag => '2.3.0'
+

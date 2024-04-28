@@ -1,0 +1,10 @@
+local_mirror: mirror-ec.test.local
+
+simp_options::dns::servers:
+  - ns-ec.test.local
+  - ns.test.local
+
+simp_options::ntpd::servers:
+  - ntp-east.test.local
+
+timezone::timezone: 'America/New_York'

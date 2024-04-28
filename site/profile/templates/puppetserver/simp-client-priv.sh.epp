@@ -1,0 +1,44 @@
+#!/bin/bash
+# script for adding prviate network node to SIMP server.
+# copy to node and run as root.
+# make sure SIMP environment has /etc/hosts file management turn off:
+#
+# simp::scenario::base::puppet_server_hosts_entry: false
+#
+SS="<%= @simpserverlocal %>"       ## change to appropriate SIMP server
+SSIP="<%= @simpserverprivip %>"     ## change to appropriate SIMP server private IP
+WS="    "
+HF="/etc/hosts"
+
+grep $SS $HF
+if [ $? -ne 0 ]
+then 
+  echo "host $SS not found in /etc/hosts, adding.."
+  echo "$SSIP${WS}$SS" >> $HF
+  echo "Done."
+fi
+
+cat << EOF > /etc/yum.repos.d/simp.repo
+[simp]
+name=SIMP EL8 x86_64 base packages and updates
+baseurl=https://$SS/yum/SIMP/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=https://$SS/yum/SIMP/GPGKEYS/RPM-GPG-KEY-puppet
+    https://$SS/yum/SIMP/GPGKEYS/RPM-GPG-KEY-puppetlabs
+    https://$SS/yum/SIMP/GPGKEYS/RPM-GPG-KEY-SICURA-CE-RELEASE
+    https://$SS/yum/SIMP/GPGKEYS/RPM-GPG-KEY-SICURA-CE-RELEASE-LEGACY
+    https://$SS/yum/SIMP/GPGKEYS/RPM-GPG-KEY-PGDG-94
+    https://$SS/yum/SIMP/GPGKEYS/RPM-GPG-KEY-PGDG-96
+    https://$SS/yum/SIMP/GPGKEYS/RPM-GPG-KEY-EPEL-8
+enablegroups=0
+keepalive=0
+metadata_expire=3600
+sslverify=0
+EOF
+
+yum install -y puppet
+
+curl -k -O https://$SS/ks/bootstrap_simp_client
+
+/opt/puppetlabs/puppet/bin/ruby ./bootstrap_simp_client  --puppet-server $SS --puppet-ca $SS --puppet-wait-for-cert 0 --debug --print-stats

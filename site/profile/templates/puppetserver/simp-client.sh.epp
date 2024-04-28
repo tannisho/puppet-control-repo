@@ -1,0 +1,22 @@
+#!/bin/bash
+# script for adding node to SIMP server.
+# copy to node and run as root.
+#
+SS="<%= @simpserver %>"     ## change to appropriate SIMP server
+MS="<%= @mirrorserver %>"
+RP="<%= @rpmpath %>"
+PN="<%= @rpm %>"
+HN=`hostname | awk -F "." '{print $1}'`
+
+curl -k -O http://$MS.test.local/$RP/$PN
+
+dnf install --nogpgcheck -y $PN 
+
+cat << EOF >> /etc/puppetlabs/puppet/puppet.conf
+[main]
+server = $SS
+certname = $HN.test.local
+ca_port = 8141
+master_port = 8140
+ca_server = $SS
+EOF

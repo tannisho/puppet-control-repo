@@ -1,0 +1,9 @@
+# Added versionlock with Puppet, do not edit manually
+kernel-<%= @lustre_kernel_version_justnumber %>.*
+kernel-abi-stablelists-<%= @lustre_kernel_version_justnumber %>.*
+kernel-core-<%= @lustre_kernel_version_justnumber %>.*
+kernel-devel-<%= @lustre_kernel_version_justnumber %>.*
+kernel-headers-<%= @lustre_kernel_version_justnumber %>.*
+kernel-modules-<%= @lustre_kernel_version_justnumber %>.*
+kernel-tools-<%= @lustre_kernel_version_justnumber %>.*
+kernel-tools-libs-<%= @lustre_kernel_version_justnumber %>.*

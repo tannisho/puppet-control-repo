@@ -1,0 +1,7 @@
+#!/bin/bash
+RPMD='<%= @lustre_rpm_dir %>'
+RPMDC=`ls $RPMD`
+
+for i in ${RPMDC[@]} ; do
+  dnf install $RPMD/${i} --nogpgcheck
+done

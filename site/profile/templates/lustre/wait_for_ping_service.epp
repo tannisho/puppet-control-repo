@@ -1,0 +1,11 @@
+[Unit]
+Description=Blocks until it successfully pings <%= @storage_net_gateway %>
+After=network-online.target
+
+[Service]
+ExecStartPre=/usr/bin/bash -c "while ! ping -I <%= @storage_interface %> -c1 <%= @storage_net_gateway %>; do sleep 1; done"
+ExecStart=/usr/bin/bash -c "echo good to go"
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,45 @@
+---
+# Keeping Puppet servers hardened to begin with
+selinux::ensure: 'enforcing'
+
+profile::puppetserver::r10k::config:
+  cachedir: /opt/puppetlabs/server/data/puppetserver/r10k
+  sources:
+    puppet:
+      basedir: /etc/puppetlabs/code/environments
+      remote: git@gl.test.local:cr/puppet-control-repo.git
+
+  deploy:
+    generate_types: true
+
+  postrun:
+    - '/bin/simp'
+    - 'environment'
+    - 'new'
+    - '--link'
+    - 'production'
+    - '--no-puppet-env'
+    - '--secondary-env'
+    - '--writable-env'
+    - '--log-file'
+    - '/root/.simp/simp_env_new.log'
+    - '$modifiedenvs'
+
+#
+# yamllint disable-line rule:line-length
+profile::puppetserver::deploy_hook::svc_account_ssh_public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABgQDXkWoC8MhucwVZZJK+My+0PviqVIAVmp4CpIzHmIMO/NbahePTDjNeiKpZO9LylmfavyyKrmHN6IVuuLlxh5F4H3gXLi9DDj0E7jv2UgMh6OJRX64TDOK6Dqs4UdssdcAfk52zVaa+sd2oMyNridz1LJTPy1TrMzUpF6cXiJGjsvQ/UFeCVxWJJdGzUf6qpphznxdPCxAgZz6f2CuwJA3pEBFaRzHOrWt5RTI4eQH2sbN8RGUy/eq5si7lVuYCsiFTw7rkv11Ec97TtF1kafrj/ay3+JUW8PWm1KSd1B7XgKt1WDpHPFJodJ5bVXkgg+pokPvg6O8L4mi00LTP1Cn/aZulLW3vsM6nPTCvX1bSOVBqf5drL4EASyIooDALsfOgNOMofrmXxnjaQOJhFwCubdxghlAYePtcOBUz8TX9yzwX/WZUedPGX1UcQ+dRZzAs+mmELE162q7+q+ff1W9tzp/BMSkz1D8wSOkcdVyRjumzHsUzKvIXRaHwstjfTM0='
+# yamllint disable-line rule:line-length
+# yamllint disable-line rule:line-length
+profile::puppetserver::deploy_hook::svc_account_ssh_private_key: 'ENC[PKCS7,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]'
+# yamllint disable-line rule:line-length
+
+profile::puppetserver::deploy_hook::svc_account_ssh_config: |
+  Host gl.test.local
+          Port 2200
+
+simp::client::simpserver: '%{facts.puppet_server}'
+simp::client::simpserver::local: 'sicura1.test.local'
+simp::client::simpserver::privip: '192.168.100.5'
+# yamllint disable-line rule:line-length
+simp::client::simpserver::rpmpath: 'repos/SIMP/yum/releases/latest/el/8/x86_64/simp-community-puppet'
+simp::client::simpserver::rpm: 'puppet-agent-7.21.0-1.el8.x86_64.rpm'

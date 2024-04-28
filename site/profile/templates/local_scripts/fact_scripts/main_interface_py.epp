@@ -1,0 +1,27 @@
+<% if @operatingsystem == "Ubuntu" -%>
+<% pythonpath = '#!/usr/bin/env python3' -%>
+<% else -%>
+<% pythonpath = '#!/usr/bin/env python' -%>
+<% end -%>
+<%= pythonpath %>
+import re, subprocess
+intipmap = {}
+a = subprocess.Popen(['ip', '-4', '-brief', 'addr', 'show'], universal_newlines=True, stdout=subprocess.PIPE)
+out = a.stdout.readlines()
+
+for i in out:
+    i = i.strip()
+    a,b,c = i.split()
+    c = re.sub(r'/.*',"", c)
+    if b == 'UP':
+        intipmap[c] = a
+
+for j in intipmap.keys():
+   b = subprocess.Popen(['host', j], universal_newlines=True, stdout=subprocess.PIPE)
+   out2 = b.stdout.readlines()
+   for k in out2:
+       k = k.strip()
+       match = re.search('(not found)', k)
+       match2 = re.search('(local)', k)
+       if not match and not match2:
+           print(intipmap[j])

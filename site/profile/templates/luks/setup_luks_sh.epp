@@ -1,0 +1,32 @@
+#!/bin/bash
+WD='/root/.pwf'
+DEV=`blkid |grep crypto_LUKS| awk -F":" '{print $1}'`
+LUKSVER=`cryptsetup luksDump $DEV|grep Version|awk '{print $2}'`
+TS=(
+<% @tangservers.each do |ip| -%>
+'<%= ip %>'
+<% end -%>
+)
+
+printf '<%= @kspass %>' > $WD/kspass
+printf '<%= @szeropass %>' > $WD/szeropass
+printf '<%= @sonepass %>' > $WD/sonepass
+
+echo '' > /etc/security/pwquality.conf
+
+cryptsetup luksAddKey --key-file $WD/kspass -S 1 $DEV $WD/sonepass
+cryptsetup luksKillSlot --key-file $WD/sonepass $DEV 0
+cryptsetup luksAddKey --key-file $WD/sonepass -S 0 $DEV $WD/szeropass
+cryptsetup luksKillSlot --key-file $WD/szeropass $DEV 1
+
+for i in ${TS[@]}; do
+  curl -sfg http://${i}/adv -o adv.jws
+  clevis luks bind -f -k- -d $DEV tang '{"url":"'${i}'","adv":"adv.jws"}' <<< `cat $WD/szeropass`
+done
+
+if [ $LUKSVER == 2 ]
+then
+  update-initramfs -u -k 'all'
+fi
+
+echo "luks_applied=true" >> /etc/facter/facts.d/type.txt

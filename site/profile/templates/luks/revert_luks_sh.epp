@@ -1,0 +1,45 @@
+#!/bin/bash
+WD='/root/.pwf'
+DEV=`blkid |grep crypto_LUKS| awk -F":" '{print $1}'`
+EK=''
+LUKSVER=`cryptsetup luksDump $DEV|grep Version|awk '{print $2}'`
+CT=`cryptsetup luksDump $DEV|grep clevis|awk '{print $1}'|sed 's|:||g'`
+
+printf '<%= @kspass %>' > $WD/kspass
+printf '<%= @szeropass %>' > $WD/szeropass
+printf '<%= @sonepass %>' > $WD/sonepass
+
+echo '' > /etc/security/pwquality.conf
+
+if [ $LUKSVER == 2 ]
+then
+  EK=`cryptsetup luksDump $DEV|grep luks2|awk '{print $1}'|sed 's|:||g'`
+else
+  EK=`cryptsetup luksDump $DEV|grep ENABLED|awk '{print $3}'|sed 's|:||g'`
+fi
+
+for i in ${EK[@]}; do
+  if [ ${i} != 0 ]
+  then
+    cryptsetup luksKillSlot --key-file $WD/szeropass $DEV ${i}
+    if [ $LUKSVER == 1 ]
+    then
+      luksmeta wipe -d $DEV -s ${i} -f
+    fi
+  fi
+done
+
+for j in ${CT[@]}; do
+  if [ $LUKSVER == 2 ]
+  then
+    cryptsetup token remove --token-id ${j} $DEV
+  fi
+done
+
+cryptsetup luksAddKey --key-file $WD/szeropass -S 1 $DEV $WD/sonepass
+cryptsetup luksKillSlot --key-file $WD/sonepass $DEV 0
+cryptsetup luksAddKey --key-file $WD/sonepass -S 0 $DEV $WD/kspass
+cryptsetup luksKillSlot --key-file $WD/kspass $DEV 1
+
+sed -i '/luks_applied=true/d' /etc/facter/facts.d/type.txt
+sed -i '/luks_revert=true/d' /etc/facter/facts.d/type.txt

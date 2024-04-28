@@ -1,0 +1,1 @@
+IEEE_8021X_PRIVATE_KEY_PASSWORD=<%= @priv_key_password %>
